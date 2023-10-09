@@ -1,5 +1,5 @@
 from neo4j import GraphDatabase
-
+import time
 
 class ForwardPath:
     """
@@ -61,5 +61,8 @@ class ForwardPath:
 
 if __name__ == "__main__":
     algo = ForwardPath("bolt://localhost:7687", "neo4j", "testtest")
+    start = time.time()
     algo.execute_forward_path()
+    end = time.time()
+    print("The execution took %.2f seconds." %(end-start))
     algo.close()
