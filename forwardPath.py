@@ -49,10 +49,10 @@ class ForwardPath:
         """
         result = tx.run("""
                         MATCH (a:Action)-[:PRECEDES]->(b:Action)
-                        WITH COLLECT(a) AS predecessors, b, max(a.earliestFinish) as maxEarliestStart
+                        WITH COLLECT(a) AS predecessors, b, max(a.earliestFinish) as maxEarliestFinish
                         WHERE b.earliestStart IS NULL
                         AND all(x in predecessors WHERE x.earliestFinish IS NOT NULL)
-                        SET b.earliestStart = maxEarliestStart
+                        SET b.earliestStart = maxEarliestFinish
                         WITH b
                         SET b.earliestFinish = b.earliestStart + b.duration
                         RETURN COUNT(b)
